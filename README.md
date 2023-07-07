@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Dynamic Side Menu Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains a React component that renders a dynamic and expandable side-menu-like list of items.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+To use the component, follow these steps:
 
-### `npm start`
+1. Clone the repository:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+   ```bash
+   git clone https://github.com/priyab028/dynamic-sidemenu
+   ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. Install the dependencies:
 
-### `npm test`
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Run the development server:
 
-### `npm run build`
+   ```bash
+   npm start
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see the component in action.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To use the component in your own project, follow these steps:
 
-### `npm run eject`
+1. Copy the `SideMenu.js` file from the `src/components` directory in this repository into your project.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Import the `SideMenu` component into your own component file:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```jsx
+   import React from 'react';
+   import SideMenu from './path/to/SideMenu';
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Define the menu configuration:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+   ```jsx
+   const menuConfig = [
+     {
+       title: 'Home',
+     },
+     {
+       title: 'Services',
+       subItems: ['Cooking', 'Cleaning'],
+     },
+     {
+       title: 'Contact',
+       subItems: ['Phone', 'Mail'],
+     }
+   ];
+   ```
 
-## Learn More
+4. Render the `SideMenu` component with the `menuConfig` prop:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```jsx
+   const App = () => {
+     return (
+       <div>
+         <h1>My App</h1>
+         <SideMenu menuConfig={menuConfig} />
+       </div>
+     );
+   }
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Component Requirements
+
+The `SideMenu` component has the following requirements:
+
+1. The outermost tag of the component should be a `div` with a class of `menu-wrapper`.
+
+2. The component receives a prop named `menuConfig` which contains the configuration of the side menu data. The `menuConfig` should be an array of objects, where each object represents a menu item. Each menu item object should have a `title` property and an optional `subItems` property.
+
+3. Every menu item should be displayed inside a separate corresponding `div`. The `div` should have a dynamically created attribute `data-test-id` in the form: `first-level-[lowercase-title-name-here]`. For example, if a menu item contains a title named "Home", the `div` should have a `data-test-id` attribute containing `first-level-home`.
+
+4. Every menu item `div` should contain the following:
+
+   - Title: The text of the `div` should be the title of the menu item.
+
+   - Button: A button should be displayed when there are subItems for the menu item. The button should have a dynamic `data-test-id` in the form: `button-{lowercase-title-name-here}` (e.g., `button-home`). The button text should be "Expand" when the menu is not expanded, and "Hide" when the menu is expanded. Clicking the button should toggle the visibility of the submenu.
+
+   - Submenu: If the menu item has subItems, an unordered list (`ul`) should be displayed. The `ul` tag should have a `data-test-id` in the form: `ul-{lowercase-title-name-here}` (e.g., `ul-home`). Inside the `ul`, there should be `li` tags for each subItem. Each `li` tag should have a `data-test-id` in the form: `li-{lowercase-title-name-here}-{lowercase-subitem-name-here}` (e.g., `li-home-main`). The text inside each `li` tag should be the subItem name.
+
+5. Only one submenu should be in the expanded state at any time. If a submenu is already expanded and a different menu item button is clicked, the previously expanded submenu should be hidden, and the new one should appear.
+
+6. If a menu item has no subItems (undefined `subItems` property or an empty array), no `ul` list should be displayed, and the button should not be available.
+
+7. The component should not use CSS properties to control element visibility. Tests will rely on the presence or absence of elements in the DOM.
+
+
+

@@ -1,24 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SideMenu from './component/SideMenu/Sidemenu';
+
+
 
 function App() {
+
+  const menuConfig = [
+  {
+    title: 'Home',
+  },
+  {
+    title: 'Services',
+    subItems: ['Cooking', 'Cleaning'],
+  },
+  {
+    title: 'Contact',
+    subItems: ['Phone', 'Mail'],
+  },
+];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SideMenu menuConfig={menuConfig} />
+
     </div>
   );
 }
