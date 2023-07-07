@@ -2,7 +2,7 @@
 
 This repository contains a React component that renders a dynamic and expandable side-menu-like list of items.
 
-https://github.com/priyab028/dynamic-sidemenu/blob/master/dynamic-sidemenu.gif
+![](https://github.com/priyab028/dynamic-sidemenu/blob/master/dynamic-sidemenu.gif)
 
 ## Getting Started
 
